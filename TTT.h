@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
+#include <sstream>
 
 using namespace std;
 
@@ -60,7 +61,7 @@ class TTT
 
 		//game logic
 		int		checkWinner(game* gi);
-		void	gameOver(int playerWon);
+		void	gameOver(game* gi, int playerWon);
 		void	gameTurn(game* gi, int turn);
 		int		boardCheck(game* gi, int block);
 		void	placePiece(game* gi, int block, int piece);
@@ -68,6 +69,9 @@ class TTT
 		//player turn actions
 		void		computerTurn(game* gi);
 		void 		playerTurn(game* gi, string name, int piece);
+
+		//basic functions
+		string	i2s(int input);
 };
 
 #endif // TTT_H

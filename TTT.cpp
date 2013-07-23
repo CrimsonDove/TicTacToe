@@ -47,7 +47,16 @@ int TTT::play(game* instance)
 		//if we have a winner preform game over
 		if(winner != 0)
 		{
-			this->gameOver(winner);
+			//print game then game over message
+			this->printGame(instance);
+			this->gameOver(instance, winner);
+			break;
+		}
+
+		if(turn == 9)
+		{
+			this->printGame(instance);
+			this->gameOver(instance, 4);
 			break;
 		}
 
@@ -75,7 +84,7 @@ void TTT::printGame(game* gi)
 			switch (piece)
 			{
 			case 0:
-				buffer += " "; break;
+				buffer += i2s(block); break;
 
 			case 1:
 				buffer += "X"; break;
@@ -121,30 +130,48 @@ int TTT::checkWinner(game* gi)
 }
 
 //basic void, prints game over and players name
-void TTT::gameOver(int playerWon)
+void TTT::gameOver(game* gi, int playerWon)
 {
-	//TODO: Game over logic
+	cout << "\r\nGame Over!\r\n";
+	if(playerWon == 1)
+	{
+		cout << gi->playerOne.name << " wins!";
+	}
+	else if(playerWon == 2)
+	{
+		cout << gi->playerTwo.name << " wins!";
+	}
+	else
+	{
+		cout << "CAT nobody wins!";
+	}
+	cout << endl;
 }
 
-//main function that determins the players turn, and adds their mark to the board
+//main function that determins the players turn, marks are added in the actual turn function
 void TTT::gameTurn(game* gi, int turn)
 {
 	TTT::player player;
-	player = gi->playerTwo;
 
+	//simple check to see whos turn it is
 	if(turn % 2 == 0 )
 	{
+		player = gi->playerTwo;
 		if(player.human)
 		{
+			//if the player is human run the human player function
 			playerTurn(gi, player.name, 2);
 		}
 		else
 		{
+			//if player 2 is not AI run an AI turn function
 			computerTurn(gi);
 		}
 	}
 	else
 	{
+		//player one is always human
+		player = gi->playerOne;
 		playerTurn(gi, player.name, 1);
 	}
 
@@ -193,8 +220,7 @@ void TTT::placePiece(game* gi, int block, int piece)
 //the function to make the computer pick a square to place their piece in
 void TTT::computerTurn(game* gi)
 {
-	//TODO: AI logic
-	//return 0;
+	//TODO: AI ai logic
 }
 
 //function that asks player his placement option
@@ -217,5 +243,13 @@ void TTT::playerTurn(game* gi, string name, int piece)
 			break;
 		}
 	}
+}
+
+//basic int to string function
+string TTT::i2s(int input)
+{
+	stringstream ss;
+	ss << input;
+	return ss.str();
 }
 
