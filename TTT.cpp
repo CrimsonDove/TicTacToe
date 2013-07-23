@@ -56,7 +56,7 @@ int TTT::play(game* instance)
 		if(turn == 9)
 		{
 			this->printGame(instance);
-			this->gameOver(instance, 4);
+			this->gameOver(instance, 0);
 			break;
 		}
 
@@ -125,8 +125,48 @@ void TTT::printGame(game* gi)
 //checks the entire board looking for a winner
 int TTT::checkWinner(game* gi)
 {
-	//TODO: gameWinner logic
-	return 0;
+	int winner = 0;
+
+	//horizontal check
+	for(int i=0; i<3; i++)
+	{
+		if((gi->board[i][0] != 0) && gi->board[i][0] == gi->board[i][1]  && gi->board[i][1] == gi->board[i][2])
+		{
+			winner = gi->board[i][0];
+			break;
+		}
+	}
+
+	//vertical check
+	if(winner == 0)
+	{
+		for(int i=0; i<3; i++)
+		{
+			if((gi->board[0][i] != 0) && gi->board[0][i] == gi->board[1][i]  && gi->board[1][i] == gi->board[2][i])
+			{
+				winner = gi->board[0][i];
+				break;
+			}
+		}
+	}
+
+	//diagional check
+	if(winner == 0)
+	{
+		if((gi->board[0][0] != 0) && gi->board[0][0] == gi->board[1][1]  && gi->board[1][1] == gi->board[2][2])
+		{
+			winner = gi->board[0][0];
+		}
+	}
+	if(winner == 0)
+	{
+		if((gi->board[0][2] != 0) && gi->board[0][2] == gi->board[1][1]  && gi->board[1][1] == gi->board[2][0])
+		{
+			winner = gi->board[0][2];
+		}
+	}
+
+	return winner;
 }
 
 //basic void, prints game over and players name

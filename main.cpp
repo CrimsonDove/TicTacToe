@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
 	//print helo
-	cout << "Welcome to TTT v0.01" << endl<< endl;
+	cout << "Welcome to TTT v0.2" << endl<< endl;
 	cout << "How many humans are playing [1 or 2]" << endl << "> ";
 
 	//ask how many humans are playing
