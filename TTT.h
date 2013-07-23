@@ -37,7 +37,7 @@ class TTT
 				}
 			}
 
-			int** board[3][3];
+			int board[3][3];
 			TTT::player playerOne;
 			TTT::player playerTwo;
 		};
@@ -62,10 +62,12 @@ class TTT
 		int		checkWinner(game* gi);
 		void	gameOver(int playerWon);
 		void	gameTurn(game* gi, int turn);
+		int		boardCheck(game* gi, int block);
+		void	placePiece(game* gi, int block, int piece);
 
 		//player turn actions
-		int		computerTurn(game* gi);
-		int 		playerTurn(string name);
+		void		computerTurn(game* gi);
+		void 		playerTurn(game* gi, string name, int piece);
 };
 
 #endif // TTT_H
