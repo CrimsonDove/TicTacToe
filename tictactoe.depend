@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1374534702 source:c:\users\raven\desktop\tictactoe\ttt.cpp
+	"TTT.h"
+
+1374534702 c:\users\raven\desktop\tictactoe\ttt.h
+	<iostream>
+	<cstring>
+
+1374534723 source:c:\users\raven\desktop\tictactoe\main.cpp
+	<iostream>
+	<string.h>
+	"TTT.h"
+
+1374539504 source:c:\users\raven\documents\github\tictactoe\main.cpp
+	<iostream>
+	<string.h>
+	"TTT.h"
+
+1374540064 c:\users\raven\documents\github\tictactoe\ttt.h
+	<iostream>
+	<cstring>
+	<cstdlib>
+
+1374540150 source:c:\users\raven\documents\github\tictactoe\ttt.cpp
+	"TTT.h"
+
