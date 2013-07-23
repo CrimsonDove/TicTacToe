@@ -186,6 +186,7 @@ void TTT::gameOver(game* gi, int playerWon)
 		cout << "CAT nobody wins!";
 	}
 	cout << endl;
+	system("PAUSE");
 }
 
 //main function that determins the players turn, marks are added in the actual turn function
@@ -261,6 +262,26 @@ void TTT::placePiece(game* gi, int block, int piece)
 void TTT::computerTurn(game* gi)
 {
 	//TODO: AI ai logic
+	//temporary logic
+	while(true)
+	{
+		int option = 0;
+
+		//randomly picking places for a piece
+		srand (time(NULL));
+		option = rand() % 9 + 1;
+
+		//place the piece
+		if(boardCheck(gi, option) != 0)
+		{
+			cout << "Invalid Move" << endl;
+		}
+		else
+		{
+			this->placePiece(gi,option, 2);
+			break;
+		}
+	}
 }
 
 //function that asks player his placement option
@@ -268,18 +289,20 @@ void TTT::playerTurn(game* gi, string name, int piece)
 {
 	while(true)
 	{
+		//capture input
 		int option = 0;
 		cout << endl << name << "'s turn" << endl;
 		cout << "> " ;
 		cin >> option;
 
+		//check if you can place it or go back through the loop
 		if(boardCheck(gi, option) != 0)
 		{
 			cout << "Invalid Move" << endl;
 		}
 		else
 		{
-			placePiece(gi,option, piece);
+			this->placePiece(gi,option, piece);
 			break;
 		}
 	}

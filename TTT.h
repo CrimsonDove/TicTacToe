@@ -5,6 +5,9 @@
 #include <cstring>
 #include <cstdlib>
 #include <sstream>
+#include <windows.h>
+#include <time.h>
+#include <stdlib.h>
 
 using namespace std;
 
