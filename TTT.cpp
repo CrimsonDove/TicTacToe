@@ -244,44 +244,135 @@ int TTT::boardCheck(game* gi, int block)
 void TTT::placePiece(game* gi, int block, int piece)
 {
 	int sBlock = 1;
+	bool done = false;
 	for(int x=0; x<3; x++)
 	{
 		for(int y=0; y<3; y++)
 		{
-			//tell us what we want printed to console
-			if(block == sBlock)
+			if(block == sBlock && gi->board[x][y] == 0)
 			{
 				gi->board[x][y] = piece;
+				done = true;
+				break;
 			}
 			sBlock++;
 		}
+
+		if(done)
+				break;
 	}
 }
 
-//the function to make the computer pick a square to place their piece in
 void TTT::computerTurn(game* gi)
 {
-	//TODO: AI ai logic
-	//temporary logic
-	while(true)
+	int finalPlacement = 0;
+	int block = 1;
+
+	//horrizontal checks
+	for(int a=0; a<3; a++)
 	{
-		int option = 0;
-
-		//randomly picking places for a piece
-		srand (time(NULL));
-		option = rand() % 9 + 1;
-
-		//place the piece
-		if(boardCheck(gi, option) != 0)
+		for(int b=0; b<3; b++)
 		{
-			cout << "Invalid Move" << endl;
+			if(gi->board[a][b] == 1)
+				break;
+			else if(gi->board[a][b] == 0)
+			{
+				finalPlacement = block;
+				break;
+			}
+			block++;
 		}
-		else
+		if(finalPlacement  != 0) { break; }
+	}
+
+	//vertical check
+	//how to block
+	if(finalPlacement  == 0)
+	{
+		block = 1;
+
+		for(int a=0; a<3; a++)
 		{
-			this->placePiece(gi,option, 2);
-			break;
+
+			for(int b=0; b<3; b++)
+			{
+				if(gi->board[b][a] == 1)
+					break;
+				else if(gi->board[b][a] == 0)
+				{
+					finalPlacement = block;
+					break;
+				}
+
+				block += 3;
+			}
+			if(finalPlacement  != 0) { break; }
+			block -= 5;
 		}
 	}
+
+	//diagional check 1
+	if(finalPlacement  == 0)
+	{
+		block = 1;
+
+		for(int a=0; a<3; a++)
+		{
+			if(gi->board[a][a] == 1)
+				break;
+			else if(gi->board[a][a] == 0)
+			{
+				finalPlacement = block;
+				break;
+			}
+			block += 4;
+		}
+	}
+
+	//diagional check 2
+	if(finalPlacement  == 0)
+	{
+		block = 3;
+
+		int a = 0;
+		int b = 2;
+		for(int c=0; c<3; c++)
+		{
+			if(gi->board[a][b] == 1)
+				break;
+			else if(gi->board[a][b] == 0)
+			{
+				finalPlacement = block;
+				break;
+			}
+
+			a+= 1; b -= 1;
+			block += 2;
+		}
+	}
+
+	//if all else fails
+	if(finalPlacement  == 0)
+	{
+		while(true)
+		{
+			int option = 0;
+
+			//randomly picking places for a piece
+			srand (time(NULL));
+			option = rand() % 9 + 1;
+
+			//place the piece
+			if(boardCheck(gi, option) == 0)
+			{
+				//this->placePiece(gi,option, 2);
+				finalPlacement = option;
+				break;
+			}
+		}
+	}
+
+	this->placePiece(gi, finalPlacement, 2);
 }
 
 //function that asks player his placement option
